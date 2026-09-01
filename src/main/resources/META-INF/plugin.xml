@@ -1,0 +1,41 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <id>dev.gaphunter.ssrfunsanitizedurlcompanion</id>
+    <name>SSRF via Unsanitized URL Companion</name>
+    <vendor>Gap Hunter Labs</vendor>
+    <description><![CDATA[
+        <p>Warning on an HTTP call (<code>HttpRequest.newBuilder(...)</code>/
+        Spring <code>RestTemplate</code>/OkHttp's <code>Request.Builder</code>)
+        whose URL/host argument traces back (within the same method, one
+        direct hop) to an untrusted Spring MVC/JAX-RS controller
+        parameter, with no allowlist validation found in the same method
+        -- CWE-918, Server-Side Request Forgery. An attacker uses the
+        server itself as a proxy toward internal resources (cloud
+        metadata endpoints, internal services with no perimeter
+        authentication).</p>
+        <p>Same source-to-sink flow-following mechanism as
+        <code>unsafe-deserialization-sink-companion</code> (this catalog),
+        applied to a different sink category. This exact category has a
+        dedicated CodeQL query and a dedicated AWS CodeGuru Detector
+        Library detector; no Marketplace plugin found doing it as an
+        inline IDE inspection.</p>
+        <p>Stated honestly: v0.1 uses the same one-method-of-distance
+        bound as its sibling plugin, a closed list of known HTTP sinks
+        (<code>java.net.http.HttpClient</code>, <code>RestTemplate</code>,
+        OkHttp), no general taint analysis of the whole project.</p>
+        <p>Free. No license nags, no telemetry, no network calls.</p>
+    ]]></description>
+
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.java</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <localInspection language="JAVA"
+            groupName="SSRF via Unsanitized URL Companion"
+            displayName="Server-Side Request Forgery via unsanitized URL"
+            enabledByDefault="true"
+            level="WARNING"
+            implementationClass="dev.gaphunter.ssrfunsanitizedurlcompanion.inspection.SsrfSinkInspection"/>
+        <notificationGroup id="SSRF via Unsanitized URL Companion" displayType="BALLOON"/>
+    </extensions>
+</idea-plugin>
