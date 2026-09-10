@@ -6,6 +6,12 @@ traces back (within the same method, one direct hop) to an untrusted
 Spring MVC/JAX-RS controller parameter, with no allowlist validation
 found in the same method -- CWE-918, Server-Side Request Forgery.
 
+## Screenshots
+
+![Screenshot 1](docs/screenshots/Screenshot_1.png)
+
+![Screenshot 2](docs/screenshots/Screenshot_2.png)
+
 ## Why it exists
 
 An attacker uses the server itself as a proxy toward internal
