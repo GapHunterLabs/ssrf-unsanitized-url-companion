@@ -1,0 +1,11 @@
+<html>
+<body>
+Reports an HTTP call (<code>HttpRequest.newBuilder(...)</code>, Spring <code>RestTemplate</code>, OkHttp
+<code>Request.Builder</code>) whose URL or host comes, within the same method, from a Spring MVC or JAX-RS controller
+parameter with no allowlist check in that method.
+<!-- tooltip end -->
+<p>This is server-side request forgery (CWE-918): an attacker uses the server as a proxy to reach internal resources,
+such as cloud metadata endpoints or internal services. Validate the destination against an allowlist before the
+call.</p>
+</body>
+</html>
